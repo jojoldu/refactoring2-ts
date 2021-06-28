@@ -1,4 +1,4 @@
-import {createStatementData} from "../../src/chap1/createStatementData";
+import {createPerformanceCalculator, createStatementData} from "../../src/chap1/createStatementData";
 
 describe('statement', () => {
     let playsJson =
@@ -33,6 +33,11 @@ describe('statement', () => {
         expect(result.totalAmount).toEqual(173000);
         expect(result.totalVolumeCredits).toEqual(47);
 
+    });
+
+    it("plays type에 tragedy, comedy 외에 들어오면 Exception이 발생한다.", () => {
+        const play = {"type" : "music"};
+        expect(() => createPerformanceCalculator(null, play)).toThrow(Error);
     });
 
 

@@ -32,7 +32,7 @@ export function createStatementData(invoice, plays) {
     }
 }
 
-function createPerformanceCalculator(performance, play) {
+export function createPerformanceCalculator(performance, play) {
     switch (play.type) {
         case "tragedy":
             return new TragedyCalculator(performance, play);

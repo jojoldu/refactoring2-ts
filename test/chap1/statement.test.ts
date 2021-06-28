@@ -35,7 +35,7 @@ describe('statement', () => {
             "Amount owed is $1,730.00\n" +
             "You earned 47 credits\n";
 
-        expect(statement(invoicesJson[0], playsJson)).toBe(expected);
+        expect(statement(invoicesJson, playsJson)).toBe(expected);
     });
 
     it('should print a statement for multiple plays, single customer and multiple seats in html', () => {
@@ -48,7 +48,7 @@ describe('statement', () => {
         result += `<p>Amount owed is <em>$1,730.00</em></p>\n`;
         result += `<p>You earned <em>47</em> credits</p>\n`;
 
-        expect(htmlStatement(invoicesJson[0], playsJson)).toBe(result);
+        expect(htmlStatement(invoicesJson, playsJson)).toBe(result);
     });
 
 });
