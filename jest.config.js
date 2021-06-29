@@ -18,5 +18,10 @@ module.exports = {
         '!src/**/exception/**',
     ],
     coverageDirectory: 'coverage',
-    testEnvironment: 'node'
+    testEnvironment: 'node',
+    globals: {
+        "ts-jest": {
+            isolatedModules: true,
+        }
+    }
 };

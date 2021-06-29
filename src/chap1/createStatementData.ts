@@ -1,23 +1,17 @@
 import {TragedyCalculator} from "./calculator/TragedyCalculator";
 import {ComedyCalculator} from "./calculator/ComedyCalculator";
+import {Performance} from "./Performance";
 
 export function createStatementData(invoice, plays) {
-    const performances = invoice.performances.map(enhancePerformance);
+    const performances = invoice.performances
+        .map(performance => enhancePerformance(new Performance(performance.playID, performance.audience), plays));
+
     return {
         "customer": invoice.customer,
         "performances": performances,
         "totalVolumeCredits": totalVolumeCredits(performances) ,
         "totalAmount": totalAmount(performances)
     };
-
-    function enhancePerformance(performance) {
-        const calculator = createPerformanceCalculator(performance, playFor(performance));
-        const result = Object.assign({}, performance);
-        result.play = calculator.play
-        result.amount = calculator.amount;
-        result.volumeCredits = calculator.volumeCredits;
-        return result;
-    }
 
     function totalVolumeCredits(performances) {
         return performances.reduce((total, performance) => total + performance.volumeCredits, 0)
@@ -26,10 +20,11 @@ export function createStatementData(invoice, plays) {
     function totalAmount(performances) {
         return performances.reduce((total, performance) => total + performance.amount, 0)
     }
+}
 
-    function playFor(performance) {
-        return plays[performance.playID];
-    }
+export function enhancePerformance(performance: Performance, plays) {
+    const calculator = createPerformanceCalculator(performance, plays[performance.playID]);
+    return performance.enhance(calculator.play, calculator.amount, calculator.volumeCredits);
 }
 
 export function createPerformanceCalculator(performance, play) {
