@@ -51,4 +51,13 @@ describe('statement', () => {
         expect(htmlStatement(invoicesJson, playsJson)).toBe(result);
     });
 
+    it("array slice", () => {
+        const target = [1,2,3,4,5];
+        const result = target.slice(0,3);
+        expect(result).toHaveLength(3);
+        expect(result).toStrictEqual([1,2,3]);
+    });
+
+
+
 });
