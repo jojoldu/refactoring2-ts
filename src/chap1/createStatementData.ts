@@ -5,7 +5,8 @@ import {Invoice} from "./invoice/Invoice";
 
 export function createStatementData(invoice: Invoice, plays) {
     const performances = invoice.performances
-        .map(performance => enhancePerformance(new Performance(performance.playID, performance.audience), plays));
+        .map(performance => new Performance(performance.playID, performance.audience)
+            .enhance(plays[performance.playID]));
 
     return {
         "customer": invoice.customer,
@@ -21,11 +22,6 @@ export function createStatementData(invoice: Invoice, plays) {
     function totalAmount(performances) {
         return performances.reduce((total, performance) => total + performance.amount, 0)
     }
-}
-
-export function enhancePerformance(performance: Performance, plays) {
-    const calculator = createPerformanceCalculator(performance, plays[performance.playID]);
-    return performance.enhance(calculator.play, calculator.amount, calculator.volumeCredits);
 }
 
 export function createPerformanceCalculator(performance, play) {

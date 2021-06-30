@@ -10,5 +10,7 @@
       "ts-node": "^10.0.0",
       "typescript": "^4.3.4"
    },
-   "scripts": {}
+   "scripts": {
+      "test": "jest"
+   }
 }

@@ -1,3 +1,7 @@
+import {PerformanceCalculator} from "../calculator/PerformanceCalculator";
+import {TragedyCalculator} from "../calculator/TragedyCalculator";
+import {ComedyCalculator} from "../calculator/ComedyCalculator";
+
 export class Performance {
     public playID: string;
     public audience: number;
@@ -10,11 +14,23 @@ export class Performance {
         this.audience = audience;
     }
 
-    enhance (play, amount, volumeCredits): Performance {
+    enhance (play): Performance {
+        const calculator = this._createPerformanceCalculator(play);
         const copy = new Performance(this.playID, this.audience);
-        copy.play = play;
-        copy.amount = amount;
-        copy.volumeCredits = volumeCredits;
+        copy.play = calculator.play;
+        copy.amount = calculator.amount;
+        copy.volumeCredits = calculator.volumeCredits;
         return copy;
+    }
+
+    _createPerformanceCalculator(play): PerformanceCalculator {
+        switch (play.type) {
+            case "tragedy":
+                return new TragedyCalculator(this, play);
+            case "comedy":
+                return new ComedyCalculator(this, play);
+            default:
+                throw new Error(`unknown type: ${play.type}`);
+        }
     }
 }
