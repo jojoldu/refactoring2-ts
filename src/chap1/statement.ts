@@ -1,11 +1,12 @@
 import {createStatementData} from "./createStatementData";
+import {Invoice} from "./invoice/Invoice";
 
-export function htmlStatement(invoice, plays) {
-    return renderHtml(createStatementData(invoice, plays));
+export function htmlStatement(invoiceJson, plays) {
+    return renderHtml(createStatementData(Invoice.of(invoiceJson), plays));
 }
 
-export function statement(invoice, plays) {
-    return renderPlainText(createStatementData(invoice, plays));
+export function statement(invoiceJson, plays) {
+    return renderPlainText(createStatementData(Invoice.of(invoiceJson), plays));
 }
 
 function usd(aNumber) {

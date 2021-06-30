@@ -1,4 +1,5 @@
 import {createPerformanceCalculator, createStatementData} from "../../src/chap1/createStatementData";
+import {Invoice} from "../../src/chap1/invoice/Invoice";
 
 describe('statement', () => {
     let playsJson =
@@ -28,7 +29,7 @@ describe('statement', () => {
         };
 
     it("statementData", () => {
-        const result = createStatementData(invoicesJson, playsJson);
+        const result = createStatementData(Invoice.of(invoicesJson), playsJson);
 
         expect(result.totalAmount).toEqual(173000);
         expect(result.totalVolumeCredits).toEqual(47);
