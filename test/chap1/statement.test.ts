@@ -51,4 +51,40 @@ describe('statement', () => {
         expect(htmlStatement(invoicesJson, playsJson)).toBe(result);
     });
 
+    it("array slice", () => {
+        const target = [1,2,3,4,5];
+        const result = target.slice(0,3);
+        expect(result).toHaveLength(3);
+        expect(result).toStrictEqual([1,2,3]);
+    });
+
+    it("", () => {
+        const data = {
+            "receivers": [
+                {
+                    "to": "a",
+                },
+                {
+                    "to": "b",
+                }, {
+                    "to": "c",
+                }, {
+                    "to": "d",
+                }, {
+                    "to": "e",
+                },
+            ],
+        };
+
+        const result = data.receivers
+            .map(r => r.to)
+            .splice(0, 3);
+
+        expect(result).toHaveLength(3);
+        expect(result[0]).toBe("a");
+        expect(result[1]).toBe("b");
+        expect(result[2]).toBe("c");
+
+    });
+
 });
